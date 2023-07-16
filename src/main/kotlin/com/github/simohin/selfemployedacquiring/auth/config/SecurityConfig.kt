@@ -39,8 +39,8 @@ class SecurityConfig {
         .formLogin { it.disable() }
         .logout { it.disable() }
         .authorizeExchange {
-            it.pathMatchers("/auth/**").permitAll()
-            it.anyExchange().authenticated()
+            it.pathMatchers("/api/**").authenticated()
+            it.anyExchange().permitAll()
         }
         .addFilterAt(filter, SecurityWebFiltersOrder.AUTHENTICATION)
         .build()
