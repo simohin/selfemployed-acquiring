@@ -6,9 +6,8 @@ import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 import java.util.*
 
-@Document
+@Document(collection = "users")
 data class UserDetailsImpl(
-    @Id
     private val username: String,
     private val password: String,
     private val authorities: MutableCollection<GrantedAuthority> = mutableSetOf(),
@@ -16,6 +15,7 @@ data class UserDetailsImpl(
     private val nonLocked: Boolean = true,
     private val credentialsNonExpired: Boolean = true,
     private val enabled: Boolean = true,
+    @Id
     val id: UUID = UUID.randomUUID(),
 ) : UserDetails {
     override fun getAuthorities() = authorities

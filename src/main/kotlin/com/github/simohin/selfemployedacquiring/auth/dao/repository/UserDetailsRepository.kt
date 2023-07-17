@@ -10,6 +10,6 @@ import java.util.*
 @Repository
 interface UserDetailsRepository : ReactiveMongoRepository<UserDetailsImpl, UUID> {
 
-    fun findByUsername(username: String): Mono<UserDetails>
+    fun findByUsername(username: String): Mono<UserDetailsImpl>
     fun existsByUsername(username: String): Mono<Boolean>
 }

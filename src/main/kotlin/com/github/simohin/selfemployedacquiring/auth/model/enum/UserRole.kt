@@ -5,6 +5,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority
 
 enum class UserRole {
     ROLE_USER,
+    ROLE_MERCHANT,
     ROLE_ADMIN
 }
 
