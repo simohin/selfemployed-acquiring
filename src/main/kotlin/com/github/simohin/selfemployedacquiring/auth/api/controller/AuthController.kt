@@ -11,11 +11,11 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.ReactiveAuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
+import org.springframework.web.server.WebSession
 import reactor.core.publisher.Mono
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 @RestController
@@ -30,6 +30,15 @@ class AuthController(
     fun login(@RequestBody authRequest: Mono<AuthRequest>) = authRequest
         .map { it.login to it.password }
         .authorize()
+
+    @DeleteMapping
+    fun logout(session: WebSession) = session.invalidate()
+        .then(Mono.fromCallable {
+            val headers = HttpHeaders()
+            headers[HttpHeaders.SET_COOKIE] =
+                "JSESSIONID=;path=/;Secure;HttpOnly;Expires=${LocalDateTime.MIN.format(DateTimeFormatter.ISO_DATE_TIME)}"
+            ResponseEntity("Logged out", headers, HttpStatus.OK)
+        })
 
     @PostMapping("/users")
     fun register(@RequestBody authRequest: Mono<AuthRequest>) = authRequest.flatMap {
