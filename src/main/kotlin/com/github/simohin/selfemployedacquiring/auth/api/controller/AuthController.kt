@@ -31,15 +31,6 @@ class AuthController(
         .map { it.login to it.password }
         .authorize()
 
-    @DeleteMapping
-    fun logout(session: WebSession) = session.invalidate()
-        .then(Mono.fromCallable {
-            val headers = HttpHeaders()
-            headers[HttpHeaders.SET_COOKIE] =
-                "JSESSIONID=;path=/;Secure;HttpOnly;Expires=${LocalDateTime.MIN.format(DateTimeFormatter.ISO_DATE_TIME)}"
-            ResponseEntity("Logged out", headers, HttpStatus.OK)
-        })
-
     @PostMapping("/users")
     fun register(@RequestBody authRequest: Mono<AuthRequest>) = authRequest.flatMap {
         userDetailsService.create(it.login, it.password)

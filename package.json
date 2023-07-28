@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "babel-plugin-direct-import": "^1.0.0"
+  }
+}

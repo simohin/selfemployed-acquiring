@@ -6,12 +6,9 @@ const baseConfig = {
     baseURL: BASE_URL
 }
 
-const secureConfig = {
-    ...baseConfig,
-    headers: {
-        "Authorization": `Bearer ${store.getState().auth.token}`
-    }
-}
-
 export const baseClient = axios.create(baseConfig)
-export const secureClient = axios.create(secureConfig)
+export const secureClient = axios.create(baseConfig)
+secureClient.interceptors.request.use(config => {
+    config.headers.Authorization = `Bearer ${store.getState().auth.token}`
+    return config
+})
