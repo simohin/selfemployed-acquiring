@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import {Provider} from "react-redux";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import {Main} from "./layouts/Main";

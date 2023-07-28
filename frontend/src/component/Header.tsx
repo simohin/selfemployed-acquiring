@@ -1,6 +1,7 @@
 import {RootState} from "../store/models";
 import {useSelector} from "react-redux";
-import {Box, Button, Toolbar, Typography} from "@mui/material";
+import {Box, Button} from "@mui/material"
+import logo from '../assets/logo.svg'
 import React, {MutableRefObject} from "react";
 import {logout} from "../api/auth";
 
@@ -21,13 +22,12 @@ export const Header: React.FC<Props> = (props) => {
     } : {}
 
     const headerTitleStyle = {
-        marginY: '16px',
         marginRight: '16px',
         marginLeft: '32px',
     };
     return (
-        <Box component={'header'} sx={{display: 'flex', justifyContent: 'space-between'}}>
-            <Typography sx={headerTitleStyle} variant={'h4'}>SE.ACQ</Typography>
+        <Box component={'header'} sx={{display: 'flex', justifyContent: 'space-between', marginTop: '16px'}}>
+            <img style={headerTitleStyle} width={'60px'} src={logo} alt="Logo"/>
             <Button
                 color="error"
                 variant={'contained'}
