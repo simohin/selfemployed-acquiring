@@ -1,6 +1,6 @@
 import {RootState} from "../store/models";
 import {useSelector} from "react-redux";
-import {Box, Button} from "@mui/material"
+import {Box, Button, useTheme} from "@mui/material"
 import logo from '../assets/logo.svg'
 import React, {MutableRefObject} from "react";
 import {logout} from "../api/auth";
@@ -10,6 +10,7 @@ type Props = {
 }
 
 export const Header: React.FC<Props> = (props) => {
+    const theme = useTheme()
     const authState = useSelector((state: RootState) => state.auth)
     const baseButtonStyle = {
         marginY: '16px',
@@ -26,7 +27,18 @@ export const Header: React.FC<Props> = (props) => {
         marginLeft: '32px',
     };
     return (
-        <Box component={'header'} sx={{display: 'flex', justifyContent: 'space-between', marginTop: '16px'}}>
+        <Box
+            component={'header'}
+            sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                paddingY: '8px',
+                position: 'fixed',
+                top: 0,
+                zIndex: 1,
+                width: '100dvw',
+                bgcolor: theme.palette.background.paper
+            }}>
             <img style={headerTitleStyle} width={'60px'} src={logo} alt="Logo"/>
             <Button
                 color="error"

@@ -1,4 +1,4 @@
-import {BottomNavigation, BottomNavigationAction} from "@mui/material";
+import {BottomNavigation, BottomNavigationAction, useTheme} from "@mui/material";
 import {AppRegistration, Login as LoginIcon, Settings as SettingsIcon, Store} from "@mui/icons-material";
 import * as React from "react";
 import {MutableRefObject, useEffect} from "react";
@@ -12,13 +12,11 @@ type Props = {
 }
 
 export const Footer: React.FC<Props> = (props) => {
-
+    const theme = useTheme()
     const authState = useSelector((state: RootState) => state.auth)
-
     const isLoggedIn = authState?.isLoggedIn;
-    useEffect(() => {
-        props.setCurrent(isLoggedIn ? 2 : 0)
-    }, [isLoggedIn])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(() => props.setCurrent(isLoggedIn ? 2 : 0), [isLoggedIn])
 
     const secureBottomNavigationActionSx = {
         display: isLoggedIn ? 'flex' : 'none'
@@ -30,6 +28,12 @@ export const Footer: React.FC<Props> = (props) => {
 
     return (
         <BottomNavigation
+            sx={{
+                position: 'fixed',
+                bottom: 0,
+                width: '100dvw',
+                bgcolor: theme.palette.background.paper
+            }}
             showLabels
             value={props.current}
             onChange={(event, newValue) => {

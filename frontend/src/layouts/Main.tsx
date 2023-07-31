@@ -1,8 +1,6 @@
 import * as React from 'react';
-import {useLayoutEffect, useRef, useState} from 'react';
+import {useRef, useState} from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
-import {useSelector} from 'react-redux';
-import {RootState} from "../store/models";
 import {Header} from '../component/Header';
 import {Box} from '@mui/material';
 import {Login} from "../view/Login";
@@ -43,11 +41,25 @@ export const Main = () => {
 
     const handleSuccess = () => setCurrent(2)
 
+
     return (
-        <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100dvh', overflow: 'hidden'}}>
+        <Box sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            height: '100dvh',
+            overflow: 'hidden'
+        }}>
             <CssBaseline/>
             <Header elRef={headerRef}/>
-            <Box component={'main'} sx={{ display: 'flex', flexDirection: 'column', margin: '16px'}}>
+            <Box component={'main'} sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                marginX: '32px',
+                marginBottom: (footerRef.current?.clientHeight || '60') + 'px',
+                marginTop: (headerRef.current?.clientHeight || '90') + 'px',
+                overflow: 'scroll'
+            }}>
                 <TabPanel value={current} index={0}>
                     <Login onSuccess={handleSuccess}/>
                 </TabPanel>

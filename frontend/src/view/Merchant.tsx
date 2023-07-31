@@ -1,7 +1,9 @@
-import {Typography} from "@mui/material";
+import {Box, Typography} from "@mui/material";
 
 export const Merchant = () => {
-  return (
-      <Typography variant={'h1'}>Мерчанты</Typography>
-  )
+    return (
+        <Box display={'flex'} flexDirection={'column'} minWidth={'100%'} minHeight={'100%'}>
+            <Typography variant={'h1'}>Мерчанты</Typography>
+        </Box>
+    )
 }
