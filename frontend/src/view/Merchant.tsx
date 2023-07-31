@@ -1,9 +1,12 @@
-import {Box, Typography} from "@mui/material";
+import {Divider, Typography} from "@mui/material";
+import React from "react";
+import {ViewContainer} from "../component/common/container/ViewContainer";
 
 export const Merchant = () => {
     return (
-        <Box display={'flex'} flexDirection={'column'} minWidth={'100%'} minHeight={'100%'}>
+        <ViewContainer>
             <Typography variant={'h1'}>Мерчанты</Typography>
-        </Box>
+            <Divider/>
+        </ViewContainer>
     )
 }
