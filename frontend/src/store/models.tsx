@@ -3,12 +3,14 @@ import {ExtraModelsFromLoading} from '@rematch/loading'
 import persistPlugin from "@rematch/persist";
 import storage from "redux-persist/lib/storage";
 import {auth} from "./auth";
+import {merchants} from "./merchants";
 
 export interface RootModel extends Models<RootModel> {
-    auth: typeof auth
+    auth: typeof auth,
+    merchants: typeof merchants
 }
 
-const models: RootModel = {auth}
+const models: RootModel = {auth, merchants}
 
 const persistConfig = {
     key: "root",

@@ -1,13 +1,14 @@
 import * as React from 'react';
 import {useRef, useState} from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
 import {Header} from '../component/Header';
 import {Box} from '@mui/material';
 import {Login} from "../view/Login";
 import {Register} from "../view/Register";
-import {Merchant} from "../view/Merchant";
+import {Merchants} from "../view/Merchants";
 import {Settings} from "../view/Settings";
 import {Footer} from "../component/Footer";
+import {useSelector} from "react-redux";
+import {RootState} from "../store/models";
 
 
 interface TabPanelProps {
@@ -21,10 +22,14 @@ function TabPanel(props: TabPanelProps) {
 
     return (
         <Box
+            component={'main'}
             role="tabpanel"
             display={value !== index ? 'none' : 'flex'}
             id={`tabpanel-${index}`}
             aria-labelledby={`tabpanel-${index}`}
+            sx={{
+                height: 'calc(100dvh - 200px)'
+            }}
             {...other}
         >
             {children}
@@ -35,50 +40,43 @@ function TabPanel(props: TabPanelProps) {
 export const Main = () => {
 
     const [current, setCurrent] = useState(0)
+    const authState = useSelector((state: RootState) => state.auth)
+    const isLoggedIn = authState?.isLoggedIn;
 
     const headerRef = useRef<HTMLDivElement>();
     const footerRef = useRef<HTMLDivElement>();
 
-    const handleSuccess = () => setCurrent(2)
+    const handleSuccess = () => setCurrent(0)
 
+    const unauthorizedPanels = () => (
+        <>
+            <TabPanel value={current} index={0}>
+                <Login onSuccess={handleSuccess}/>
+            </TabPanel>
+            <TabPanel value={current} index={1}>
+                <Register onSuccess={handleSuccess}/>
+            </TabPanel>
+        </>)
+
+    const authorizedPanels = () => (
+        <>
+            <TabPanel value={current} index={0}>
+                <Merchants/>
+            </TabPanel>
+            <TabPanel value={current} index={1}>
+                <Settings/>
+            </TabPanel>
+        </>)
 
     return (
-        <Box sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            height: '100dvh',
-            overflow: 'hidden'
-        }}>
-            <CssBaseline/>
+        <>
             <Header elRef={headerRef}/>
-            <Box component={'main'} sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                marginX: '32px',
-                marginBottom: (footerRef.current?.clientHeight || '60') + 'px',
-                marginTop: (headerRef.current?.clientHeight || '90') + 'px',
-                overflow: 'scroll'
-            }}>
-                <TabPanel value={current} index={0}>
-                    <Login onSuccess={handleSuccess}/>
-                </TabPanel>
-                <TabPanel value={current} index={1}>
-                    <Register onSuccess={handleSuccess}/>
-                </TabPanel>
-                <TabPanel value={current} index={2}>
-                    <Merchant/>
-                </TabPanel>
-                <TabPanel value={current} index={3}>
-                    <Settings/>
-                </TabPanel>
-            </Box>
+            {isLoggedIn ? authorizedPanels() : unauthorizedPanels()}
             <Footer
                 elRef={footerRef}
                 current={current}
                 setCurrent={setCurrent}
             />
-        </Box>
-
+        </>
     )
 }

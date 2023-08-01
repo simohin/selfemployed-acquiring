@@ -33,8 +33,8 @@ export const Header: React.FC<Props> = (props) => {
                 display: 'flex',
                 justifyContent: 'space-between',
                 paddingY: '8px',
-                position: 'fixed',
-                top: 0,
+                // position: 'fixed',
+                // top: 0,
                 zIndex: 1,
                 width: '100dvw',
                 bgcolor: theme.palette.background.paper

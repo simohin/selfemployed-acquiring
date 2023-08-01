@@ -17,7 +17,7 @@ export const Settings = () => {
                 {authState?.userInfo?.roles
                     .map(UserRole.toUserString)
                     .map(it => (
-                        <Chip label={it}/>
+                        <Chip key={it} label={it}/>
                     ))}
             </Stack>
             <Typography variant={'body1'}>Логин: {authState?.userInfo?.username}</Typography>

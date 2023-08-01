@@ -1,7 +1,6 @@
 import {createModel} from "@rematch/core";
 import {RootModel} from "./models";
 import {UserRole} from "../api/types";
-import {loadProfile} from "../api/profile";
 
 type UserInfo = {
     username: string,
@@ -37,8 +36,6 @@ export const auth = createModel<RootModel>()({
         },
         logout() {
             dispatch({type: 'RESET_APP'});
-        },
-        loadProfile() {
         }
     })
 })
