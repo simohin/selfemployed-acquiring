@@ -56,60 +56,59 @@ export const CredentialsInputForm: React.FC<Props> = (props) => {
 
     const inputIdPrefix = props.inputIdPrefix || "field"
     return (
-        <>
+        <Box
+            component={'form'}
+            autoComplete={'off'}
+            sx={{
+                overflowY: 'auto',
+                display: 'flex',
+                flexGrow: 1,
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                textAlign: 'center'
+            }}
+        >
+            <Typography margin={'16px'} variant={'h2'}>{props.titleText}</Typography>
             <Box
-                component={'form'}
-                autoComplete={'off'}
                 sx={{
+                    gap: '8px',
                     display: 'flex',
-                    flexGrow: 1,
                     flexDirection: 'column',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    textAlign: 'center'
-                }}
-            >
-                <Typography margin={'16px'} variant={'h2'}>{props.titleText}</Typography>
-                <Box sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '8px',
+                    textAlign: 'center',
                     mb: '16px',
-                }}>
-                    <TextField
-                        onChange={e => setUsername(e.target.value)}
-                        required
-                        id={inputIdPrefix + "-username"}
-                        label="Имя пользователя"
-                    />
-                    <TextField
-                        onChange={e => setPassword(e.target.value)}
-                        required
-                        inputProps={{type: 'password'}}
-                        id={inputIdPrefix + "password"}
-                        label="Пароль"
-                    />
-                    <Button
-                        onClick={handleSubmit}
-                        disabled={buttonDisabled}
-                        variant={'contained'}
-                    >
-                        {props.buttonText}
-                    </Button>
-                </Box>
-            </Box>
-            <Box
-                sx={{
-                    gap: '8px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    textAlign: 'center'
                 }}
             >
                 {errors.map(e => <Alert key={1} onClick={() => setErrors([])} severity="error">{e}</Alert>)}
             </Box>
-        </>
+            <Box sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '8px',
+            }}>
+                <TextField
+                    onChange={e => setUsername(e.target.value)}
+                    required
+                    id={inputIdPrefix + "-username"}
+                    label="Имя пользователя"
+                />
+                <TextField
+                    onChange={e => setPassword(e.target.value)}
+                    required
+                    inputProps={{type: 'password'}}
+                    id={inputIdPrefix + "password"}
+                    label="Пароль"
+                />
+                <Button
+                    onClick={handleSubmit}
+                    disabled={buttonDisabled}
+                    variant={'contained'}
+                >
+                    {props.buttonText}
+                </Button>
+            </Box>
+        </Box>
     )
 }

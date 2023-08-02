@@ -1,7 +1,7 @@
 import {BottomNavigation, BottomNavigationAction, useTheme} from "@mui/material";
 import {AppRegistration, Login as LoginIcon, Settings as SettingsIcon, Store} from "@mui/icons-material";
 import * as React from "react";
-import {MutableRefObject, useEffect} from "react";
+import {MutableRefObject} from "react";
 import {useSelector} from "react-redux";
 import {RootState} from "../store/models";
 
@@ -53,7 +53,8 @@ export const Footer: React.FC<Props> = (props) => {
         <BottomNavigation
             sx={{
                 width: '100dvw',
-                bgcolor: theme.palette.background.paper
+                bgcolor: theme.palette.background.paper,
+                marginBottom: "3dvh"
             }}
             value={props.current}
             onChange={(event, newValue) => {

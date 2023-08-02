@@ -28,7 +28,7 @@ function TabPanel(props: TabPanelProps) {
             id={`tabpanel-${index}`}
             aria-labelledby={`tabpanel-${index}`}
             sx={{
-                height: 'calc(100dvh - 200px)'
+                height: 'calc(100dvh - 150px)'
             }}
             {...other}
         >
